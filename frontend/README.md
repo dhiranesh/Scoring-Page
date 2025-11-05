@@ -1,26 +1,78 @@
-# Frontend (Expo React Native)
+# Frontend - Expo React Native
 
-This folder contains an Expo-based React Native app scaffold for the single-page "Scoring" flow.
+Cross-platform mobile application built with Expo and React Native.
 
-Commands (from `frontend/`):
+## Structure
+
+```
+frontend/
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   └── StartScoringButton.js
+│   ├── platform/            # Platform-specific logic
+│   │   ├── android/         # Android-specific code
+│   │   ├── ios/             # iOS-specific code
+│   │   ├── web/             # Web-specific code
+│   │   └── platformSelector.js
+│   └── config/              # App configuration
+│       └── api.js           # API endpoints
+├── App.js                   # Main app component
+├── app.json                 # Expo configuration
+└── package.json
+```
+
+## Installation
 
 ```powershell
-# install dependencies
 npm install
+```
 
-# start Metro / expo dev tools (open QR or web)
-npm run start
+## Run
 
-# run on Android device/emulator
+```powershell
+# Start Expo dev server
+npm start
+
+# Run on Android
 npm run android
 
-# run on iOS simulator (macOS only)
+# Run on iOS (macOS only)
 npm run ios
 
-# run on web
+# Run on Web
 npm run web
 ```
 
-Notes:
-- The `App.js` imports platform-specific logic from `src/platform/{android,ios,web}`. Put any OS-specific logic there.
-- The `StartScoringButton` component invokes the backend at `http://localhost:4000/start` by default; change the `backendUrl` prop in `App.js` as needed for remote servers or tunnels (e.g., Expo tunnel URL).
+## Configuration
+
+### Backend URL
+
+When running on a physical device, update the backend URL in `src/config/api.js`:
+
+```javascript
+export const API_BASE_URL = Platform.select({
+  web: 'http://localhost:4000',
+  default: 'http://YOUR_MACHINE_IP:4000',  // e.g., 'http://192.168.1.100:4000'
+});
+```
+
+To find your machine's IP:
+- Windows: `ipconfig` → look for IPv4 Address
+- macOS/Linux: `ifconfig` → look for inet address
+
+## Platform-Specific Logic
+
+The app automatically selects the correct platform module:
+- `platform/android/` - Android-specific implementations
+- `platform/ios/` - iOS-specific implementations
+- `platform/web/` - Web-specific implementations
+
+Add platform-specific code in these folders when needed.
+
+## Features
+
+- ✅ Cross-platform (iOS, Android, Web)
+- ✅ Clean component structure
+- ✅ Platform-specific logic separation
+- ✅ Proper API integration
+- ✅ Error handling with user feedback

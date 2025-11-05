@@ -1,4 +1,0 @@
-This is a test file created to verify pushing to the `subBranch` branch.
-
-Created: 2025-11-05
-Author: automated test
